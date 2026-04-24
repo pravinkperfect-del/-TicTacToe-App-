@@ -1,90 +1,26 @@
-import java.util.Random;
-import java.util.Scanner;
+class TicTacToe {
 
-public class TicTacToe {
-
-    static char[][] board = new char[3][3];
-
-    static boolean humanTurn;
-    static char humanSymbol;
-    static char computerSymbol;
-
-    static Scanner scanner = new Scanner(System.in);
+    static char[][] board = {
+        {'-', '-', '-'},
+        {'-', '-', '-'},
+        {'-', '-', '-'}
+    };
 
     public static void main(String[] args) {
-
-        initializeBoard();
-
-        tossAndAssignSymbols();
-
-        int slot = getUserSlot();
-
-        int row = getRowFromSlot(slot);
-        int col = getColFromSlot(slot);
-
-        System.out.println("Row: " + row);
-        System.out.println("Column: " + col);
-
-        printBoard();
+        System.out.println(isValidMove(1, 1)); 
     }
 
-    static void initializeBoard() {
+    static boolean isValidMove(int row, int col) {
 
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                board[i][j] = '-';
-            }
+        
+        if (row < 0 || row >= 3 || col < 0 || col >= 3) {
+            return false;
         }
-    }
 
-    static void tossAndAssignSymbols() {
-
-        Random random = new Random();
-        int toss = random.nextInt(2);
-
-        if (toss == 0) {
-
-            humanTurn = true;
-            humanSymbol = 'X';
-            computerSymbol = 'O';
-
-            System.out.println("Human starts first with symbol X");
-
-        } else {
-
-            humanTurn = false;
-            humanSymbol = 'O';
-            computerSymbol = 'X';
-
-            System.out.println("Computer starts first with symbol X");
+        if (board[row][col] != '-') {
+            return false;
         }
-    }
 
-    static int getUserSlot() {
-
-        System.out.print("Enter slot number (1-9): ");
-        return scanner.nextInt();
-    }
-
-    static int getRowFromSlot(int slot) {
-
-        return (slot - 1) / 3;
-    }
-
-    static int getColFromSlot(int slot) {
-
-        return (slot - 1) % 3;
-    }
-
-    static void printBoard() {
-
-        System.out.println("Current Board:");
-
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                System.out.print(board[i][j] + " ");
-            }
-            System.out.println();
-        }
+        return true;
     }
 }
